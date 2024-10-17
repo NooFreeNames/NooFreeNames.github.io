@@ -7,7 +7,7 @@ const bindings = {
     "block enter": {
         key: "Enter",
         collapsed: true,
-        format: ["header1", "characters", "weapons", "artifact-sets"],
+        format: ["head", "characters", "weapons", "artifact-sets"],
         suffix: /^$/,
         handler(range, context) {
             const [line, offset] = this.quill.getLine(range.index);
@@ -16,7 +16,7 @@ const bindings = {
                 .insert("\n", context.format)
                 .retain(line.length() - offset - 1)
                 .retain(1, {
-                    header1: null,
+                    head: null,
                     characters: null,
                     weapons: null,
                     "artifact-sets": null,
@@ -38,7 +38,7 @@ const bindings = {
     "list-empty-enter": {
         key: "Enter",
         collapsed: true,
-        format: ["plus-list", "minus-list"],
+        format: ["plus-list", "minus-list", "point-list"],
         empty: true,
         handler(range, context) {
             const formats = { list: false };
@@ -60,16 +60,10 @@ const bindings = {
         metaKey: null,
         ctrlKey: null,
         altKey: null,
-        format: ["plus-list", "minus-list"],
+        format: ["plus-list", "minus-list", "point-list"],
         offset: 0,
         handler(range, context) {
-            console.log(context.format);
-            if (
-                context.format["plus-list"] != null ||
-                context.format["minus-list"] != null
-            ) {
-                this.quill.format("list", false, Quill.sources.USER);
-            }
+            this.quill.format("list", false, Quill.sources.USER);
         },
     },
     shiftv: {
@@ -98,9 +92,24 @@ const bindings = {
     },
 };
 
+const listHelpers = (value, name) => {
+    if (value === true) {
+        this.quill.format(name, "bullet", Quill.sources.USER);
+    } else {
+        this.quill.format("list", false, Quill.sources.USER);
+    }
+};
+
 var quill = new Quill("#content-editor", {
     modules: {
-        toolbar: "#toolbar",
+        toolbar: {
+            container: "#toolbar",
+            handlers: {
+                "plus-list": (value) => listHelpers(value, "plus-list"),
+                "minus-list": (value) => listHelpers(value, "minus-list"),
+                "point-list": (value) => listHelpers(value, "point-list"),
+            },
+        },
         keyboard: {
             bindings: bindings,
         },
@@ -121,21 +130,34 @@ var quill = new Quill("#content-editor", {
         },
     },
     theme: "snow",
-    // formats: [
-    //   "pyro",
-    //   "dendro",
-    //   "hydro",
-    //   "cryo",
-    //   "geo",
-    //   "anemo",
-    //   "electro",
-    //   "header1",
-    //   "cards",
-    //   "header",
-    //   "list",
-    //   "clean",
-    //   "link",
-    // ],
+    formats: [
+        "pyro",
+        "dendro",
+        "hydro",
+        "cryo",
+        "geo",
+        "anemo",
+        "electro",
+        "golden",
+        "gray",
+
+        "italic",
+        "bold",
+        "link",
+
+        "head",
+        "characters",
+        "weapons",
+        "artifact-sets",
+
+        "plus-list",
+        "minus-list",
+        "point-list",
+        "list",
+
+        "clean",
+        "text",
+    ],
 });
 
 const prepareSavedHTML = (html) => {
@@ -170,10 +192,11 @@ document.getElementById("save-button").addEventListener("click", function () {
     const htmlContent = prepareSavedHTML(quill.root.innerHTML);
 
     const blob = new Blob([htmlContent], { type: "text/html" });
-
+    const fileName =
+        document.getElementById("file-name-input").value || "content";
     const link = document.createElement("a");
     link.href = URL.createObjectURL(blob);
-    link.download = "content.geoguide";
+    link.download = `${fileName}.geoguide`;
     link.click();
 });
 

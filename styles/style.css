@@ -15,6 +15,13 @@
     --geo: #ffe699ff;
     --cryo: #99ffffff;
     --dendro: #99ff88ff;
+    --gray: #99a1b3;
+    /* #a5a5a5 */
+}
+
+body {
+    background-color: var(--main-bg) !important;
+    color: var(--genshin-light-white);
 }
 
 @font-face {
@@ -48,13 +55,22 @@
     color: var(--golden) !important;
 }
 
+.element-img:hover {
+    opacity: 0.8;
+    color: var(--golden) !important;
+}
+
 .ql-active .element-img {
     opacity: 1;
     color: var(--golden) !important;
 }
 
-.highlighting {
+.golden {
     color: var(--golden);
+}
+
+.gray {
+    color: var(--gray);
 }
 
 .pyro {
@@ -93,8 +109,8 @@
     /* background-color: var(--main-bg); */
     font-family: "genshin";
     border-width: 0 !important;
-    flex: 1;
     overflow-y: auto;
+    flex: 1;
 }
 
 .ql-editor div,
@@ -159,26 +175,45 @@
     font-size: 20px !important;
 }
 
+#main {
+    display: grid;
+    grid-template-columns: 1fr 500px; /* Первая колонка гибкая, вторая фиксирована */
+    grid-template-rows: 1fr auto; /* Ряды для контента и кнопок */
+    gap: 7px;
+    padding: 7px;
+    box-sizing: border-box;
+    height: 100vh;
+    width: 100vw;
+    background-color: var(--main-bg);
+}
+
 #preview {
-    width: 500px;
+    grid-row: 1; /* Размещаем на первой строке */
+    grid-column: 2; /* Размещаем на второй колонке (фиксированная ширина) */
+    width: 500px; /* Ширина фиксирована */
 }
 
 #editor {
-    flex: 1;
+    grid-row: 1; /* Размещаем на первой строке */
+    grid-column: 1; /* Занимаем первую колонку */
     display: flex;
     flex-direction: column;
-    background-color: var(--main-bg);
-    height: 100vh;
+    height: 100%;
     color: var(--genshin-light-white);
     gap: 7px;
-    padding-top: 7px !important;
-    padding-bottom: 7px !important;
     box-sizing: border-box;
+    overflow: hidden;
 }
 
-#main {
+#button-bar {
+    grid-row: 2; /* Размещаем на второй строке */
+    grid-column: 1 / span 2; /* Растягиваем на две колонки */
     display: flex;
-    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start; /* Выровнять кнопки по ширине контейнера */
+    align-items: center; /* Центрировать кнопки по вертикали */
+    gap: 7px; /* Пространство между кнопками */
+    border-radius: 10px;
 }
 
 .ql-editor a {
@@ -200,8 +235,8 @@
 }
 
 .button:hover {
-    background-color: var(--golden);
-    color: var(--block-bg);
+    background-color: var(--block-light-bg);
+    /* color: var(--block-bg); */
 }
 
 .button:active {
@@ -213,17 +248,6 @@
     background-color: var(--block-light-bg);
     color: var(--genshin-light-text);
     cursor: not-allowed;
-}
-
-#button-bar {
-    display: flex;
-    justify-content: flex-start; /* Выровнять кнопки по ширине контейнера */
-    align-items: center; /* Центрировать кнопки по вертикали */
-    gap: 7px; /* Пространство между кнопками */
-
-    /* border: 2px solid var(--golden); */
-    border-radius: 10px;
-    /* box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3); */
 }
 
 ::-webkit-scrollbar {
@@ -249,12 +273,14 @@
 }
 
 .ql-editor .plus-list li,
-.ql-editor .minus-list li {
-    list-style: none; /* Убираем стандартный маркер */
+.ql-editor .minus-list li,
+.ql-editor .point-list li {
+    list-style: none;
 }
 
-.ql-editor .plus-list li::before .ql-editor .minus-list li::before {
-    content: "+";
+.ql-editor .plus-list li::before,
+.ql-editor .minus-list li::before,
+.ql-editor .point-list li::before {
     color: var(--genshin-light-white);
     font-size: 13px;
 }
@@ -265,4 +291,36 @@
 
 .ql-editor .minus-list li::before {
     content: "-";
+}
+
+.ql-editor .point-list li::before {
+    content: "•";
+}
+
+.input {
+    background-color: var(--block-bg); /* Фон в тон общему стилю блоков */
+    color: var(--genshin-light-white); /* Цвет текста такой же, как в кнопках */
+    font-family: "genshin", sans-serif; /* Используем тот же шрифт */
+    font-size: 14px; /* Размер шрифта */
+    padding: 7px 10px; /* Примерный padding, как у кнопок */
+    border-radius: 10px; /* Закругленные углы, как у кнопок */
+    border: none; /* Убираем рамку */
+    outline: none; /* Убираем стандартное выделение */
+    flex: 1;
+    box-sizing: border-box; /* Учитываем padding в ширине */
+}
+
+.input:focus {
+    background-color: var(--block-light-bg); /* При фокусе светлый фон */
+
+    outline: 0px solid var(--gray); /* Добавляем тонкую рамку золотого цвета при фокусе */
+}
+
+.ql-toolbar button svg {
+    width: 20px !important; /* Устанавливает новый размер ширины */
+    height: 20px !important; /* Устанавливает новый размер высоты */
+}
+
+.ql-tooltip ql-editing {
+    z-index: 100;
 }

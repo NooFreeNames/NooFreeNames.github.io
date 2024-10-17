@@ -13,3 +13,10 @@ class MinusList extends List {
 }
 
 Quill.register(MinusList);
+
+class PointList extends List {
+    static blotName = "point-list";
+    static className = "point-list";
+}
+
+Quill.register(PointList);

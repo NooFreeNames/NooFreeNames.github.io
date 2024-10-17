@@ -7,11 +7,17 @@ class Base extends Inline {
     }
 }
 
-class Highlighting extends Base {
-    static blotName = "highlighting";
-    static className = "highlighting";
+class Golden extends Base {
+    static blotName = "golden";
+    static className = "golden";
 }
-Quill.register(Highlighting);
+Quill.register(Golden);
+
+class Gray extends Base {
+    static blotName = "gray";
+    static className = "gray";
+}
+Quill.register(Gray);
 
 class Pyro extends Base {
     static blotName = "pyro";
