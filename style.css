@@ -1,0 +1,268 @@
+:root {
+    --block-bg: #1a1a18;
+    --block-light-bg: #21211e;
+    --main-bg: #0c0c0a;
+    --golden: #d3bc8e;
+    --golden-light: #e3d2af;
+    --genshin-white: #e9e5dc;
+    --genshin-light-white: #d1cdc3;
+    --genshin-text: #4d5669;
+    --genshin-light-text: #767e91;
+    --pyro: #ff9999ff;
+    --hydro: #80c0ffff;
+    --electro: #ffacffff;
+    --anemo: #80ffd7ff;
+    --geo: #ffe699ff;
+    --cryo: #99ffffff;
+    --dendro: #99ff88ff;
+}
+
+@font-face {
+    font-family: "genshin";
+    src: url("genshin.woff2");
+}
+
+.display-none {
+    display: none;
+}
+.ql-editor {
+    padding: 0;
+}
+
+.ql-toolbar.ql-snow {
+    border-width: 0 !important;
+    border-radius: 10px;
+    background-color: var(--block-bg);
+    padding: 7px !important;
+}
+
+.ql-snow.ql-toolbar button,
+.ql-snow .ql-toolbar button {
+    width: auto;
+}
+
+.element-img {
+    opacity: 0.6;
+    font-family: "genshin";
+    font-size: 16px;
+    color: var(--golden) !important;
+}
+
+.ql-active .element-img {
+    opacity: 1;
+    color: var(--golden) !important;
+}
+
+.highlighting {
+    color: var(--golden);
+}
+
+.pyro {
+    color: var(--pyro);
+}
+
+.dendro {
+    color: var(--dendro);
+}
+
+.hydro {
+    color: var(--hydro);
+}
+
+.cryo {
+    color: var(--cryo);
+}
+
+.geo {
+    color: var(--geo);
+}
+
+.anemo {
+    color: var(--anemo);
+}
+
+.electro {
+    color: var(--electro);
+}
+
+.ql-container {
+    height: auto !important;
+}
+
+#content-editor {
+    /* background-color: var(--main-bg); */
+    font-family: "genshin";
+    border-width: 0 !important;
+    flex: 1;
+    overflow-y: auto;
+}
+
+.ql-editor div,
+.ql-editor p,
+.ql-editor h1,
+.ql-editor ul,
+.ql-editor ol {
+    padding: 10px !important;
+    padding-top: 28px !important;
+    border-radius: 10px;
+    background-color: var(--block-bg);
+    position: relative;
+    margin-bottom: 5px !important;
+}
+
+.ql-editor div::before,
+.ql-editor p::before,
+.ql-editor h1::before,
+.ql-editor ul::before,
+.ql-editor ol::before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 10px;
+    font-size: 12px;
+    color: var(--golden);
+}
+
+.ql-editor div::before {
+    content: "Блок";
+}
+
+.ql-editor div.characters::before {
+    content: "Блок персонажей";
+}
+
+.ql-editor div.artifact-sets::before {
+    content: "Блок артефактов";
+}
+
+.ql-editor div.weapons::before {
+    content: "Блок оружий";
+}
+
+.ql-editor p::before {
+    content: "Параграф";
+}
+
+.ql-editor ul::before,
+.ql-editor ol::before {
+    content: "Список";
+}
+
+.ql-editor h1::before {
+    content: "Заголовок";
+    font-weight: normal;
+}
+
+.ql-editor h1.head {
+    font-family: "genshin";
+    font-weight: normal;
+    font-size: 20px !important;
+}
+
+#preview {
+    width: 500px;
+}
+
+#editor {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--main-bg);
+    height: 100vh;
+    color: var(--genshin-light-white);
+    gap: 7px;
+    padding-top: 7px !important;
+    padding-bottom: 7px !important;
+    box-sizing: border-box;
+}
+
+#main {
+    display: flex;
+    flex-direction: row;
+}
+
+.ql-editor a {
+    color: var(--golden) !important;
+}
+
+.button {
+    background-color: var(--block-bg);
+    color: var(--golden-light);
+    font-family: "genshin", sans-serif;
+    font-size: 14px;
+    padding: 7px 10px;
+    border-radius: 10px;
+    border-width: 0;
+    cursor: pointer;
+    /* transition: background-color 0.3s ease, color 0.3s ease; */
+    text-align: center;
+    outline: none;
+}
+
+.button:hover {
+    background-color: var(--golden);
+    color: var(--block-bg);
+}
+
+.button:active {
+    background-color: var(--golden-light);
+    color: var(--main-bg);
+}
+
+.button:disabled {
+    background-color: var(--block-light-bg);
+    color: var(--genshin-light-text);
+    cursor: not-allowed;
+}
+
+#button-bar {
+    display: flex;
+    justify-content: flex-start; /* Выровнять кнопки по ширине контейнера */
+    align-items: center; /* Центрировать кнопки по вертикали */
+    gap: 7px; /* Пространство между кнопками */
+
+    /* border: 2px solid var(--golden); */
+    border-radius: 10px;
+    /* box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3); */
+}
+
+::-webkit-scrollbar {
+    width: 12px;
+    /* background-color: blue;
+    border: 10px solid red; */
+    background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: var(--golden);
+    border-radius: 10px;
+    border: 3px solid var(--block-bg); /* Создаем отступ вокруг ползунка */
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: var(--golden-light); /* Цвет ползунка при наведении */
+}
+
+::-webkit-scrollbar-track {
+    background-color: var(--block-bg);
+    border-radius: 10px;
+}
+
+.ql-editor .plus-list li,
+.ql-editor .minus-list li {
+    list-style: none; /* Убираем стандартный маркер */
+}
+
+.ql-editor .plus-list li::before .ql-editor .minus-list li::before {
+    content: "+";
+    color: var(--genshin-light-white);
+    font-size: 13px;
+}
+
+.ql-editor .plus-list li::before {
+    content: "+";
+}
+
+.ql-editor .minus-list li::before {
+    content: "-";
+}
